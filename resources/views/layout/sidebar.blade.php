@@ -42,13 +42,14 @@
         </li>
 
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('pelanggan.index') }}"
+                class="nav-link {{ request()->routeIs('pelanggan.index') ? 'active' : '' }}">
                 <span class="icon">
                     <i class="fa fa-users"></i>
                 </span>
                 <span class="text">Pelanggan</span>
             </a>
         </li>
+
     </ul>
 </div>
-

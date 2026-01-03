@@ -21,8 +21,7 @@
         {{-- NAVBAR --}}
         @include('layout.navbar')
 
-        {{-- CARD --}}
-        @include('layout.card')
+        @yield('content-top')
 
 
         {{-- CONTENT --}}

@@ -63,3 +63,36 @@ body {
 .sidebar-menu .nav-link:hover {
     background-color: #0f172a;
 }
+
+.btn-custom {
+    background-color: #2563eb;
+    color: #ffffff;
+    border: none;
+}
+
+.btn-custom:hover {
+    background-color: #0f172a;
+    color: #ffffff;
+}
+
+.btn-custom-light {
+    background-color: #2563eb;
+    color: #ffffff;
+    border: none;
+}
+
+.btn-custom-light:hover {
+    background-color: #1d4ed8;
+    color: #ffffff;
+}
+
+.btn-blue {
+    background-color: #2563eb !important;
+    color: #ffffff !important;
+    border: none !important;
+}
+
+.btn-blue:hover {
+    background-color: #1d4ed8 !important;
+    color: #ffffff !important;
+}
