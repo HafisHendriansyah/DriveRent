@@ -13,45 +13,49 @@
             <div class="card-body">
                 <form action="{{ route('pelanggan.store') }}" method="POST">
                     @csrf
+
+                    @error('nama_pelanggan')
+                        <div class="text-danger mb-1">{{ $message }}</div>
+                    @enderror
                     <div class="mb-3">
-                        <label for="nama_pelanggan" class="form-label">Nama Pelanggan</label>
-                        <input type="text" class="form-control @error('nama_pelanggan') is-invalid @enderror"
-                            id="nama_pelanggan" name="nama_pelanggan" value="{{ old('nama_pelanggan') }}" required>
-                        @error('nama_pelanggan')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <label for="nama_pelanggan" class="form-label text-muted small">Nama Pelanggan</label>
+                        <input type="text"
+                            class="form-control form-control-sm @error('nama_pelanggan') is-invalid @enderror"
+                            id="nama_pelanggan" name="nama_pelanggan" value="{{ old('nama_pelanggan') }}">
                     </div>
+
+                    @error('email_pelanggan')
+                        <div class="text-danger mb-1">{{ $message }}</div>
+                    @enderror
                     <div class="mb-3">
-                        <label for="email_pelanggan" class="form-label">Email</label>
-                        <input type="email" class="form-control @error('email_pelanggan') is-invalid @enderror"
-                            id="email_pelanggan" name="email_pelanggan" value="{{ old('email_pelanggan') }}" required>
-                        @error('email_pelanggan')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <label for="email_pelanggan" class="form-label text-muted small">Email</label>
+                        <input type="text"
+                            class="form-control form-control-sm @error('email_pelanggan') is-invalid @enderror"
+                            id="email_pelanggan" name="email_pelanggan" value="{{ old('email_pelanggan') }}">
                     </div>
+
+                    @error('no_ktp')
+                        <div class="text-danger mb-1">{{ $message }}</div>
+                    @enderror
                     <div class="mb-3">
-                        <label for="no_ktp" class="form-label">No. KTP</label>
-                        <input type="text" class="form-control @error('no_ktp') is-invalid @enderror" id="no_ktp"
-                            name="no_ktp" value="{{ old('no_ktp') }}" required>
-                        @error('no_ktp')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <label for="no_ktp" class="form-label text-muted small">No. KTP</label>
+                        <input type="text" class="form-control form-control-sm @error('no_ktp') is-invalid @enderror"
+                            id="no_ktp" name="no_ktp" value="{{ old('no_ktp') }}">
                     </div>
+
+                    @error('no_hp')
+                        <div class="text-danger mb-1">{{ $message }}</div>
+                    @enderror
                     <div class="mb-3">
-                        <label for="no_hp" class="form-label">No. HP</label>
-                        <input type="text" class="form-control @error('no_hp') is-invalid @enderror" id="no_hp" name="no_hp"
-                            value="{{ old('no_hp') }}" required>
-                        @error('no_hp')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <label for="no_hp" class="form-label text-muted small">No. HP</label>
+                        <input type="text" class="form-control form-control-sm @error('no_hp') is-invalid @enderror"
+                            id="no_hp" name="no_hp" value="{{ old('no_hp') }}">
                     </div>
+
                     <div class="mb-3">
-                        <label for="alamat" class="form-label">Alamat</label>
-                        <textarea class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat"
+                        <label for="alamat" class="form-label text-muted small">Alamat</label>
+                        <textarea class="form-control form-control-sm @error('alamat') is-invalid @enderror" id="alamat" name="alamat"
                             rows="3">{{ old('alamat') }}</textarea>
-                        @error('alamat')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
                     </div>
                     <button type="submit" class="btn btn-custom"><i class="fas fa-save"></i> Simpan</button>
                 </form>

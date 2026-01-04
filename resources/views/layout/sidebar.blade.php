@@ -6,7 +6,7 @@
 
     <ul class="nav flex-column sidebar-menu">
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('home') }}" class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">
                 <span class="icon">
                     <i class="fa-solid fa-grip"></i>
                 </span>
@@ -15,7 +15,7 @@
         </li>
 
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('mobil.index') }}" class="nav-link {{ request()->routeIs('mobil.*') ? 'active' : '' }}">
                 <span class="icon">
                     <i class="fa fa-car"></i>
                 </span>
@@ -43,13 +43,12 @@
 
         <li class="nav-item">
             <a href="{{ route('pelanggan.index') }}"
-                class="nav-link {{ request()->routeIs('pelanggan.index') ? 'active' : '' }}">
+                class="nav-link {{ request()->routeIs('pelanggan.*') ? 'active' : '' }}">
                 <span class="icon">
                     <i class="fa fa-users"></i>
                 </span>
                 <span class="text">Pelanggan</span>
             </a>
         </li>
-
     </ul>
 </div>

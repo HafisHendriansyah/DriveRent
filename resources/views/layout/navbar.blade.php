@@ -20,8 +20,8 @@
             </div>
 
             {{-- FOTO --}}
-            <img src="{{ 'assets/img/profile.jpg' }}" class="rounded-circle border border-2 border-light" width="40"
-                height="40">
+            <img src="{{ asset('assets/img/profile.jpg') }}" class="rounded-circle border border-2 border-light"
+                width="40" height="40">
         </a>
 
         {{-- DROPDOWN MENU --}}

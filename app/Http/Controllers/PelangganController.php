@@ -20,13 +20,33 @@ class PelangganController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'nama_pelanggan' => 'required|string|max:100',
-            'email_pelanggan' => 'required|email|unique:pelanggans,email_pelanggan',
-            'no_ktp' => 'required|digits_between:10,20|unique:pelanggans,no_ktp',
-            'no_hp' => 'required|digits_between:10,15|unique:pelanggans,no_hp',
-            'alamat' => 'nullable|string',
-        ]);
+        $request->validate(
+            [
+                'nama_pelanggan' => 'required|string|max:100',
+                'email_pelanggan' => 'required|email:rfc,dns|unique:pelanggans,email_pelanggan',
+                'no_ktp' => 'required|digits:16|unique:pelanggans,no_ktp',
+                'no_hp' => 'required|numeric|digits_between:10,13|unique:pelanggans,no_hp',
+                'alamat' => 'nullable|string'
+            ],
+            [
+                'nama_pelanggan.required' => 'Nama tidak boleh kosong!',
+                'nama_pelanggan.string' => 'Nama harus berupa teks!',
+                'nama_pelanggan.max' => 'Nama maksimal 100 karakter!',
+
+                'email_pelanggan.required' => 'Email tidak boleh kosong!',
+                'email_pelanggan.email' => 'Format email tidak benar!',
+                'email_pelanggan.unique' => 'Email ini sudah terdaftar!',
+
+                'no_ktp.required' => 'No. KTP tidak boleh kosong!',
+                'no_ktp.digits' => 'No. KTP harus 16 digit!',
+                'no_ktp.unique' => 'No. KTP ini sudah terdaftar!',
+
+                'no_hp.required' => 'No. HP tidak boleh kosong!',
+                'no_hp.numeric' => 'No. HP harus berupa angka!',
+                'no_hp.digits_between' => 'No. HP harus 10 sampai 13 digit!',
+                'no_hp.unique' => 'No. HP ini sudah terdaftar!',
+            ]
+        );
 
         Pelanggan::create($request->all());
 
@@ -41,13 +61,33 @@ class PelangganController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nama_pelanggan' => 'required|string|max:100',
-            'email_pelanggan' => 'required|email|unique:pelanggans,email_pelanggan,' . $id . ',id_pelanggan',
-            'no_ktp' => 'required|digits_between:10,20|unique:pelanggans,no_ktp,' . $id . ',id_pelanggan',
-            'no_hp' => 'required|digits_between:10,15|unique:pelanggans,no_hp,' . $id . ',id_pelanggan',
-            'alamat' => 'nullable|string',
-        ]);
+        $request->validate(
+            [
+                'nama_pelanggan' => 'required|string|max:100',
+                'email_pelanggan' => 'required|email:rfc,dns|unique:pelanggans,email_pelanggan,' . $id . ',id_pelanggan',
+                'no_ktp' => 'required|digits:16|unique:pelanggans,no_ktp,' . $id . ',id_pelanggan',
+                'no_hp' => 'required|numeric|digits_between:10,13|unique:pelanggans,no_hp,' . $id . ',id_pelanggan',
+                'alamat' => 'nullable|string',
+            ],
+            [
+                'nama_pelanggan.required' => 'Nama tidak boleh kosong!',
+                'nama_pelanggan.string' => 'Nama harus berupa teks!',
+                'nama_pelanggan.max' => 'Nama maksimal 100 karakter!',
+
+                'email_pelanggan.required' => 'Email tidak boleh kosong!',
+                'email_pelanggan.email' => 'Format email tidak benar!',
+                'email_pelanggan.unique' => 'Email ini sudah terdaftar!',
+
+                'no_ktp.required' => 'No. KTP tidak boleh kosong!',
+                'no_ktp.digits' => 'No. KTP harus 16 digit!',
+                'no_ktp.unique' => 'No. KTP ini sudah terdaftar!',
+
+                'no_hp.required' => 'No. HP tidak boleh kosong!',
+                'no_hp.numeric' => 'No. HP harus berupa angka!',
+                'no_hp.digits_between' => 'No. HP harus 10 sampai 13 digit',
+                'no_hp.unique' => 'No. HP ini sudah terdaftar!',
+            ]
+        );
 
         $pelanggan = Pelanggan::findOrFail($id);
         $pelanggan->update($request->all());

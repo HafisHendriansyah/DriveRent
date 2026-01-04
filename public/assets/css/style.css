@@ -3,14 +3,16 @@ body {
 }
 
 #sidebar {
-    width: 220px;
+    width: 210px;
+    min-width: 210px;
+    max-width: 210px;
     min-height: 100vh;
     transition: margin-left 0.3s;
     background-color: #1e293b;
 }
 
 #sidebar.hide {
-    margin-left: -220px;
+    margin-left: -210px;
 }
 
 /* Title */
