@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Mobil;
+use Illuminate\Support\Facades\Storage;
 
 class MobilController extends Controller
 {
@@ -93,7 +94,8 @@ class MobilController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $mobil = Mobil::findOrFail($id);
+        return view('mobil.edit', compact('mobil'));
     }
 
     /**
@@ -101,7 +103,48 @@ class MobilController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate(
+            [
+                'no_polisi' => 'required|unique:mobils,no_polisi,' . $id . ',id_mobil',
+                'merek' => 'required|string|max:50',
+                'jenis_mobil' => 'required|in:Sedan,MPV,SUV',
+                'kapasitas' => 'required|integer|min:2|max:7',
+                'harga_perhari' => 'required|numeric|min:100000',
+                'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
+            ],
+            [
+                'no_polisi.required' => 'Nomor polisi tidak boleh kosong!',
+                'no_polisi.unique' => 'Nomor polisi ini sudah terdaftar!',
+                'merek.required' => 'Merek mobil tidak boleh kosong!',
+                'merek.string' => 'Merek mobil harus berupa teks!',
+                'merek.max' => 'Merek mobil maksimal 50 karakter!',
+                'jenis_mobil.required' => 'Jenis mobil tidak boleh kosong!',
+                'kapasitas.required' => 'Kapasitas mobil tidak boleh kosong!',
+                'kapasitas.integer' => 'Kapasitas mobil harus berupa angka!',
+                'kapasitas.min' => 'Kapasitas mobil minimal adalah 2 orang!',
+                'kapasitas.max' => 'Kapasitas mobil maksimal adalah 7 orang!',
+                'harga_perhari.required' => 'Harga perhari tidak boleh kosong!',
+                'harga_perhari.numeric' => 'Harga perhari harus berupa angka!',
+                'harga_perhari.min' => 'Harga perhari minimal adalah 100000!',
+                'foto.image' => 'File yang diunggah harus berupa gambar!',
+                'foto.mimes' => 'Format foto harus jpg, jpeg, atau png!',
+                'foto.max' => 'Ukuran foto maksimal adalah 2MB!'
+            ]
+        );
+
+        $mobil = Mobil::findOrFail($id);
+        $data = $request->except('foto');
+
+        if ($request->hasFile('foto')) {
+            if ($mobil->foto) {
+                Storage::disk('public')->delete($mobil->foto);
+            }
+            $data['foto'] = $request->file('foto')->store('mobil', 'public');
+        }
+
+        $mobil->update($data);
+
+        return redirect()->route('mobil.index')->with('success', 'Data mobil berhasil diperbarui');
     }
 
     /**
@@ -109,6 +152,12 @@ class MobilController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $mobil = Mobil::findOrFail($id);
+        if ($mobil->foto) {
+            Storage::disk('public')->delete($mobil->foto);
+        }
+        $mobil->delete();
+
+        return redirect()->route('mobil.index')->with('success', 'Data mobil berhasil dihapus');
     }
 }
