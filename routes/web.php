@@ -6,6 +6,7 @@ use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\MobilController;
+use App\Http\Controllers\TransaksiController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth:admin');
 Route::get('register', [RegisterController::class, 'index'])->name('register');
@@ -32,4 +33,9 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::get('/mobil/edit/{id}', [MobilController::class, 'edit'])->name('mobil.edit');
     Route::put('/mobil/update/{id}', [MobilController::class, 'update'])->name('mobil.update');
     Route::delete('/mobil/destroy/{id}', [MobilController::class, 'destroy'])->name('mobil.destroy');
+});
+
+Route::group(['middleware' => 'auth:admin'], function () {
+    //Transaksi Routes
+    Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi.index');
 });

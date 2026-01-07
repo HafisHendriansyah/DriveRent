@@ -28,14 +28,14 @@
                         <thead>
                             <tr class="text-center">
                                 <th>No</th>
-                                <th>No Polisi</th>
+                                <th>Nomor Polisi</th>
                                 <th>Merek</th>
                                 <th>Jenis</th>
                                 <th>Kapasitas</th>
                                 <th>Harga Perhari</th>
                                 <th>Foto</th>
                                 <th>Status</th>
-                                <th style="width: 120px" class="text-center">Aksi</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="text-center">

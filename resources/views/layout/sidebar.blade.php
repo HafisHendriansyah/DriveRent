@@ -24,7 +24,8 @@
         </li>
 
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('transaksi.index') }}"
+                class="nav-link {{ request()->routeIs('transaksi.*') ? 'active' : '' }}">
                 <span class="icon">
                     <i class="fa fa-receipt"></i>
                 </span>
