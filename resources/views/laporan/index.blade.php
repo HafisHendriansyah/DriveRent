@@ -1,23 +1,17 @@
 @extends('layout.template')
 
-@section('title', 'Transaksi')
+@section('title', 'Laporan Transaksi')
 
 @section('content')
     <div class="col-12">
         <div class="card shadow-sm">
             <div class="card-header d-flex justify-content-between">
-                <h5 class="mb-0">Daftar Transaksi</h5>
+                <h5 class="mb-0">Laporan Transaksi</h5>
                 <a href="{{ route('home') }}" class="btn btn-secondary btn-sm">
                     <i class="fas fa-arrow-left"></i> Kembali
                 </a>
             </div>
             <div class="card-body">
-                @if (session('success'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">{{ session('success') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
-
                 <div class="table-responsive">
                     <table class="table table-striped table-hover">
                         <thead>
@@ -28,8 +22,8 @@
                                 <th>Lama Sewa</th>
                                 <th>Total Harga</th>
                                 <th>Tanggal Pesan</th>
+                                <th>Tanggal Kembali</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="text-center">
@@ -41,23 +35,14 @@
                                     <td>{{ $item->lama_penyewaan }} Hari</td>
                                     <td>Rp {{ number_format($item->total_harga) }}</td>
                                     <td>{{ $item->tgl_pesan }}</td>
+                                    <td>{{ $item->tgl_kembali }}</td>
                                     <td>
-                                        <span class="badge bg-warning text-dark">PROSES</span>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex justify-content-center gap-2">
-                                            <form action="{{ route('transaksi.updateStatus', $item->id_transaksi) }}" method="POST" class="d-inline">
-                                                @csrf
-                                                <button type="submit" class="btn btn-sm btn-success" onclick="return confirm('Selesaikan transaksi ini?')">
-                                                    Selesai
-                                                </button>
-                                            </form>
-                                        </div>
+                                        <span class="badge bg-success">SELESAI</span>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="8" class="text-center">Belum ada transaksi yang sedang diproses</td>
+                                    <td colspan="8" class="text-center">Belum ada laporan transaksi yang diselesaikan</td>
                                 </tr>
                             @endforelse
                         </tbody>

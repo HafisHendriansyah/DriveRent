@@ -38,4 +38,8 @@ Route::group(['middleware' => 'auth:admin'], function () {
 Route::group(['middleware' => 'auth:admin'], function () {
     //Transaksi Routes
     Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi.index');
+    Route::get('/transaksi/tambah/{id_mobil}', [TransaksiController::class, 'create'])->name('transaksi.create');
+    Route::post('/transaksi', [TransaksiController::class, 'store'])->name('transaksi.store');
+    Route::post('/transaksi/status/{id}', [TransaksiController::class, 'updateStatus'])->name('transaksi.updateStatus');
+    Route::get('/laporan', [TransaksiController::class, 'laporan'])->name('laporan.index');
 });

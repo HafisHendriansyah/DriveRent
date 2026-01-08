@@ -22,6 +22,11 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
+                @if (session('error'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">{{ session('error') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
 
                 <div class="table-responsive">
                     <table class="table table-striped table-hover">
@@ -65,20 +70,29 @@
 
                                     <td class="text-center">
                                         <div class="d-flex justify-content-center gap-2">
-                                            <a href="{{ route('mobil.edit', $item->id_mobil) }}"
-                                                class="btn btn-sm btn-info text-white">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
+                                            @if ($item->status === 'tersedia')
+                                                <a href="{{ route('mobil.edit', $item->id_mobil) }}"
+                                                    class="btn btn-sm btn-info text-white">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
 
-                                            <form action="{{ route('mobil.destroy', $item->id_mobil) }}" method="POST"
-                                                class="m-0">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-sm btn-danger"
-                                                    onclick="return confirm('Yakin ingin menghapus data ini?')">
+                                                <form action="{{ route('mobil.destroy', $item->id_mobil) }}" method="POST"
+                                                    class="m-0">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-sm btn-danger"
+                                                        onclick="return confirm('Yakin ingin menghapus data ini?')">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            @else
+                                                <button class="btn btn-sm btn-secondary" disabled title="Sedang disewa">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-secondary" disabled title="Sedang disewa">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
-                                            </form>
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>

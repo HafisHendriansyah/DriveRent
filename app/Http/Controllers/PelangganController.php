@@ -23,7 +23,7 @@ class PelangganController extends Controller
         $request->validate(
             [
                 'nama_pelanggan' => 'required|string|max:100',
-                'email_pelanggan' => 'required|email:rfc,dns|unique:pelanggans,email_pelanggan',
+                'email_pelanggan' => ['required', 'email:rfc,dns', 'unique:pelanggans,email_pelanggan', 'regex:/^[a-zA-Z0-9._%+-]+@(gmail\.com|yahoo\.com)$/'],
                 'no_ktp' => 'required|digits:16|unique:pelanggans,no_ktp',
                 'no_hp' => 'required|numeric|digits_between:10,13|unique:pelanggans,no_hp',
                 'alamat' => 'nullable|string'
@@ -34,8 +34,8 @@ class PelangganController extends Controller
                 'nama_pelanggan.max' => 'Nama maksimal 100 karakter!',
 
                 'email_pelanggan.required' => 'Email tidak boleh kosong!',
-                'email_pelanggan.email' => 'Format email tidak benar!',
                 'email_pelanggan.unique' => 'Email ini sudah terdaftar!',
+                'email_pelanggan.regex' => 'Format email tidak sesuai! Hanya diperbolehkan menggunakan @gmail.com atau @yahoo.com.',
 
                 'no_ktp.required' => 'No. KTP tidak boleh kosong!',
                 'no_ktp.digits' => 'No. KTP harus 16 digit!',
@@ -64,7 +64,7 @@ class PelangganController extends Controller
         $request->validate(
             [
                 'nama_pelanggan' => 'required|string|max:100',
-                'email_pelanggan' => 'required|email:rfc,dns|unique:pelanggans,email_pelanggan,' . $id . ',id_pelanggan',
+                'email_pelanggan' => ['required', 'email:rfc,dns', 'regex:/^[a-zA-Z0-9._%+-]+@(gmail\.com|yahoo\.com)$/', 'unique:pelanggans,email_pelanggan,' . $id . ',id_pelanggan'],
                 'no_ktp' => 'required|digits:16|unique:pelanggans,no_ktp,' . $id . ',id_pelanggan',
                 'no_hp' => 'required|numeric|digits_between:10,13|unique:pelanggans,no_hp,' . $id . ',id_pelanggan',
                 'alamat' => 'nullable|string',
@@ -75,8 +75,8 @@ class PelangganController extends Controller
                 'nama_pelanggan.max' => 'Nama maksimal 100 karakter!',
 
                 'email_pelanggan.required' => 'Email tidak boleh kosong!',
-                'email_pelanggan.email' => 'Format email tidak benar!',
                 'email_pelanggan.unique' => 'Email ini sudah terdaftar!',
+                'email_pelanggan.regex' => 'Format email tidak valid! Hanya diperbolehkan menggunakan @gmail.com atau @yahoo.com.',
 
                 'no_ktp.required' => 'No. KTP tidak boleh kosong!',
                 'no_ktp.digits' => 'No. KTP harus 16 digit!',

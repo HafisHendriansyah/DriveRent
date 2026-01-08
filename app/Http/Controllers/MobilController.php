@@ -14,6 +14,7 @@ class MobilController extends Controller
     public function index()
     {
         $mobil = Mobil::all();
+
         return view('mobil.index', compact('mobil'));
     }
 
@@ -32,7 +33,7 @@ class MobilController extends Controller
     {
         $request->validate(
             [
-                'no_polisi' => 'required|unique:mobils,no_polisi',
+                'no_polisi' => ['required', 'unique:mobils,no_polisi', 'regex:/^[A-Z]{1,2}\s\d{1,4}\s[A-Z]{1,3}$/'],
                 'merek' => 'required|string|max:50',
                 'jenis_mobil' => 'required|in:Sedan,MPV,SUV',
                 'kapasitas' => 'required|integer|min:2|max:7',
@@ -42,6 +43,7 @@ class MobilController extends Controller
             [
                 'no_polisi.required' => 'Nomor polisi tidak boleh kosong!',
                 'no_polisi.unique' => 'Nomor polisi ini sudah terdaftar!',
+                'no_polisi.regex' => 'Format nomor polisi tidak sesuai! Gunakan format Indonesia dengan spasi (contoh: B 1234 ABC).',
 
                 'merek.required' => 'Merek mobil tidak boleh kosong!',
                 'merek.string' => 'Merek mobil harus berupa teks!',
@@ -103,9 +105,15 @@ class MobilController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $mobil = Mobil::findOrFail($id);
+
+        if ($mobil->status === 'disewa') {
+            return redirect()->route('mobil.index')->with('error', 'Mobil sedang disewa dan tidak dapat diperbarui.');
+        }
+
         $request->validate(
             [
-                'no_polisi' => 'required|unique:mobils,no_polisi,' . $id . ',id_mobil',
+                'no_polisi' => ['required', 'regex:/^[A-Z]{1,2}\s\d{1,4}\s[A-Z]{1,3}$/', 'unique:mobils,no_polisi,' . $id . ',id_mobil'],
                 'merek' => 'required|string|max:50',
                 'jenis_mobil' => 'required|in:Sedan,MPV,SUV',
                 'kapasitas' => 'required|integer|min:2|max:7',
@@ -115,24 +123,29 @@ class MobilController extends Controller
             [
                 'no_polisi.required' => 'Nomor polisi tidak boleh kosong!',
                 'no_polisi.unique' => 'Nomor polisi ini sudah terdaftar!',
+                'no_polisi.regex' => 'Format nomor polisi tidak sesuai! Gunakan format Indonesia dengan spasi (contoh: B 1234 ABC).',
+
                 'merek.required' => 'Merek mobil tidak boleh kosong!',
                 'merek.string' => 'Merek mobil harus berupa teks!',
                 'merek.max' => 'Merek mobil maksimal 50 karakter!',
+
                 'jenis_mobil.required' => 'Jenis mobil tidak boleh kosong!',
+
                 'kapasitas.required' => 'Kapasitas mobil tidak boleh kosong!',
                 'kapasitas.integer' => 'Kapasitas mobil harus berupa angka!',
                 'kapasitas.min' => 'Kapasitas mobil minimal adalah 2 orang!',
                 'kapasitas.max' => 'Kapasitas mobil maksimal adalah 7 orang!',
+
                 'harga_perhari.required' => 'Harga perhari tidak boleh kosong!',
                 'harga_perhari.numeric' => 'Harga perhari harus berupa angka!',
                 'harga_perhari.min' => 'Harga perhari minimal adalah 100000!',
+                
                 'foto.image' => 'File yang diunggah harus berupa gambar!',
                 'foto.mimes' => 'Format foto harus jpg, jpeg, atau png!',
                 'foto.max' => 'Ukuran foto maksimal adalah 2MB!'
             ]
         );
 
-        $mobil = Mobil::findOrFail($id);
         $data = $request->except('foto');
 
         if ($request->hasFile('foto')) {
@@ -153,6 +166,11 @@ class MobilController extends Controller
     public function destroy(string $id)
     {
         $mobil = Mobil::findOrFail($id);
+
+        if ($mobil->status === 'disewa') {
+            return redirect()->route('mobil.index')->with('error', 'Mobil sedang disewa dan tidak dapat dihapus.');
+        }
+
         if ($mobil->foto) {
             Storage::disk('public')->delete($mobil->foto);
         }

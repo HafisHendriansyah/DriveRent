@@ -34,7 +34,8 @@
         </li>
 
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('laporan.index') }}"
+                class="nav-link {{ request()->routeIs('laporan.*') ? 'active' : '' }}">
                 <span class="icon">
                     <i class="fa fa-file-lines"></i>
                 </span>
