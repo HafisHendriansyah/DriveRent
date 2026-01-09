@@ -15,6 +15,16 @@
         </li>
 
         <li class="nav-item">
+            <a href="{{ route('pelanggan.index') }}"
+                class="nav-link {{ request()->routeIs('pelanggan.*') ? 'active' : '' }}">
+                <span class="icon">
+                    <i class="fa fa-users"></i>
+                </span>
+                <span class="text">Pelanggan</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
             <a href="{{ route('mobil.index') }}" class="nav-link {{ request()->routeIs('mobil.*') ? 'active' : '' }}">
                 <span class="icon">
                     <i class="fa fa-car"></i>
@@ -40,16 +50,6 @@
                     <i class="fa fa-file-lines"></i>
                 </span>
                 <span class="text">Laporan Transaksi</span>
-            </a>
-        </li>
-
-        <li class="nav-item">
-            <a href="{{ route('pelanggan.index') }}"
-                class="nav-link {{ request()->routeIs('pelanggan.*') ? 'active' : '' }}">
-                <span class="icon">
-                    <i class="fa fa-users"></i>
-                </span>
-                <span class="text">Pelanggan</span>
             </a>
         </li>
     </ul>

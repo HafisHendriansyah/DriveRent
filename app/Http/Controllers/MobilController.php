@@ -36,7 +36,7 @@ class MobilController extends Controller
                 'no_polisi' => ['required', 'unique:mobils,no_polisi', 'regex:/^[A-Z]{1,2}\s\d{1,4}\s[A-Z]{1,3}$/'],
                 'merek' => 'required|string|max:50',
                 'jenis_mobil' => 'required|in:Sedan,MPV,SUV',
-                'kapasitas' => 'required|integer|min:2|max:7',
+                'kapasitas' => 'required|integer|min:2|max:12',
                 'harga_perhari' => 'required|numeric|min:100000',
                 'foto' => 'required|image|mimes:jpg,jpeg,png|max:2048'
             ],
@@ -54,7 +54,7 @@ class MobilController extends Controller
                 'kapasitas.required' => 'Kapasitas mobil tidak boleh kosong!',
                 'kapasitas.integer' => 'Kapasitas mobil harus berupa angka!',
                 'kapasitas.min' => 'Kapasitas mobil minimal adalah 2 orang!',
-                'kapasitas.max' => 'Kapasitas mobil maksimal adalah 7 orang!',
+                'kapasitas.max' => 'Kapasitas mobil maksimal adalah 12 orang!',
 
                 'harga_perhari.required' => 'Harga perhari tidak boleh kosong!',
                 'harga_perhari.numeric' => 'Harga perhari harus berupa angka!',
@@ -116,7 +116,7 @@ class MobilController extends Controller
                 'no_polisi' => ['required', 'regex:/^[A-Z]{1,2}\s\d{1,4}\s[A-Z]{1,3}$/', 'unique:mobils,no_polisi,' . $id . ',id_mobil'],
                 'merek' => 'required|string|max:50',
                 'jenis_mobil' => 'required|in:Sedan,MPV,SUV',
-                'kapasitas' => 'required|integer|min:2|max:7',
+                'kapasitas' => 'required|integer|min:2|max:12',
                 'harga_perhari' => 'required|numeric|min:100000',
                 'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
             ],
@@ -134,12 +134,12 @@ class MobilController extends Controller
                 'kapasitas.required' => 'Kapasitas mobil tidak boleh kosong!',
                 'kapasitas.integer' => 'Kapasitas mobil harus berupa angka!',
                 'kapasitas.min' => 'Kapasitas mobil minimal adalah 2 orang!',
-                'kapasitas.max' => 'Kapasitas mobil maksimal adalah 7 orang!',
+                'kapasitas.max' => 'Kapasitas mobil maksimal adalah 12 orang!',
 
                 'harga_perhari.required' => 'Harga perhari tidak boleh kosong!',
                 'harga_perhari.numeric' => 'Harga perhari harus berupa angka!',
                 'harga_perhari.min' => 'Harga perhari minimal adalah 100000!',
-                
+
                 'foto.image' => 'File yang diunggah harus berupa gambar!',
                 'foto.mimes' => 'Format foto harus jpg, jpeg, atau png!',
                 'foto.max' => 'Ukuran foto maksimal adalah 2MB!'

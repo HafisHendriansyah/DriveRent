@@ -6,12 +6,45 @@
     <div class="col-12">
         <div class="card shadow-sm">
             <div class="card-header d-flex justify-content-between">
-                <h5 class="mb-0">Laporan Transaksi</h5>
+                <h5 class="mb-0">Data Laporan Transaksi</h5>
                 <a href="{{ route('home') }}" class="btn btn-secondary btn-sm">
                     <i class="fas fa-arrow-left"></i> Kembali
                 </a>
             </div>
             <div class="card-body">
+                <div class="mb-2">
+                    <form method="GET" action="{{ route('laporan.index') }}">
+                        <div class="row g-2 align-items-end">
+
+                            <div class="col-md-4">
+                                <label class="form-label small mb-1 text-muted">
+                                    Dari Tanggal
+                                </label>
+                                <input type="date" name="tgl_awal" class="form-control form-control-sm"
+                                    value="{{ request('tgl_awal') }}">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label small mb-1 text-muted">
+                                    Sampai Tanggal
+                                </label>
+                                <input type="date" name="tgl_akhir" class="form-control form-control-sm"
+                                    value="{{ request('tgl_akhir') }}">
+                            </div>
+
+                            <div class="col-md-2 d-flex align-items-end gap-2">
+                                <button type="submit" class="btn btn-sm btn-primary px-3">
+                                    <i class="fas fa-filter"></i>
+                                </button>
+
+                                <a href="{{ route('laporan.index') }}" class="btn btn-sm btn-secondary px-3">
+                                    <i class="fas fa-undo"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
                 <div class="table-responsive">
                     <table class="table table-striped table-hover">
                         <thead>
@@ -42,11 +75,16 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="8" class="text-center">Belum ada laporan transaksi yang diselesaikan</td>
+                                    <td colspan="8" class="text-center">Belum ada laporan transaksi
+                                        yang diselesaikan
+                                    </td>
                                 </tr>
                             @endforelse
                         </tbody>
                     </table>
+                    <a href="{{ route('laporan.pdf', request()->query()) }}" class="btn btn-danger mb-3" target="_blank">
+                        <i class="fa-regular fa-file-pdf fa-lg"></i> Cetak PDF
+                    </a>
                 </div>
             </div>
         </div>

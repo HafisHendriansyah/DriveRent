@@ -2,7 +2,7 @@
     <div class="row g-4">
         <div class="col-md-4">
             <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                <i class="fa fa-receipt fa-3x text-primary"></i>
+                <i class="fa fa-file-lines fa-3x text-primary"></i>
                 <div class="ms-3">
                     <p class="mb-2">Laporan Transaksi</p>
                     <h6 class="mb-0">{{ $jumlahLaporan ?? 0 }}</h6>

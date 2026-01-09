@@ -49,7 +49,7 @@
                                             <form action="{{ route('transaksi.updateStatus', $item->id_transaksi) }}" method="POST" class="d-inline">
                                                 @csrf
                                                 <button type="submit" class="btn btn-sm btn-success" onclick="return confirm('Selesaikan transaksi ini?')">
-                                                    Selesai
+                                                    SELESAI
                                                 </button>
                                             </form>
                                         </div>

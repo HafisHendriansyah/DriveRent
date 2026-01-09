@@ -17,16 +17,6 @@ class TransaksiController extends Controller
         return view('transaksi.index', compact('transaksi'));
     }
 
-    public function laporan()
-    {
-        // Menampilkan data transaksi yang sudah selesai
-        $transaksi = \App\Models\Transaksi::with(['pelanggan', 'mobil'])
-            ->where('status', 'SELESAI')
-            ->get();
-
-        return view('laporan.index', compact('transaksi'));
-    }
-
     public function create($id_mobil)
     {
         $mobil = Mobil::findOrFail($id_mobil);
