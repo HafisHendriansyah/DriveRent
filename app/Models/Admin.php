@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 
 class Admin extends Authenticatable
 {
-/** @use HasFactory<\Database\Factories\UserFactory> */
+    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
     /**
@@ -18,7 +18,7 @@ class Admin extends Authenticatable
      * @var list<string>
      */
 
-    
+
     protected $primaryKey = 'id_admin';
     public $incrementing = true;
     protected $keyType = 'int';

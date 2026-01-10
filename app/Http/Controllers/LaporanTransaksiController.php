@@ -11,7 +11,7 @@ class LaporanTransaksiController extends Controller
     public function index(Request $request)
     {
         // Menampilkan data transaksi yang sudah selesai
-        $queryTransaksi = \App\Models\Transaksi::with(['pelanggan', 'mobil'])
+        $queryTransaksi = Transaksi::with(['pelanggan', 'mobil'])
             ->where('status', 'SELESAI');
 
         // Filter dari tanggal
@@ -24,7 +24,7 @@ class LaporanTransaksiController extends Controller
             $queryTransaksi->whereDate('tgl_kembali', '<=', $request->tgl_akhir);
         }
 
-        $transaksi =   $queryTransaksi->get();
+        $transaksi = $queryTransaksi->get();
 
         return view('laporan.index', compact('transaksi'));
     }
@@ -47,7 +47,7 @@ class LaporanTransaksiController extends Controller
         $pdf = Pdf::loadView('laporan.pdf', [
             'transaksi' => $transaksi,
             'tgl_awal' => $request->tgl_awal,
-            'tgl_akhir' => $request->tgl_akhir,
+            'tgl_akhir' => $request->tgl_akhir
         ]);
 
         return $pdf->download('laporan-transaksi.pdf');

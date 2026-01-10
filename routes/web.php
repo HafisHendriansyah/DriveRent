@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\MobilController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth:admin');
 Route::get('register', [RegisterController::class, 'index'])->name('register');
@@ -41,6 +42,11 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::get('/transaksi/tambah/{id_mobil}', [TransaksiController::class, 'create'])->name('transaksi.create');
     Route::post('/transaksi', [TransaksiController::class, 'store'])->name('transaksi.store');
     Route::post('/transaksi/status/{id}', [TransaksiController::class, 'updateStatus'])->name('transaksi.updateStatus');
+
+    //Profile Routes
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 });
 
 // Laporan transaksi Route

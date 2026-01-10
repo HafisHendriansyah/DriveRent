@@ -18,7 +18,7 @@
                         <div class="text-danger mb-1">{{ $message }}</div>
                     @enderror
                     <div class="mb-3">
-                        <label for="no_polisi" class="form-label text-muted small">No Polisi</label>
+                        <label for="no_polisi" class="form-label text-muted small">Nomor Polisi</label>
                         <input type="text" class="form-control form-control-sm @error('no_polisi') is-invalid @enderror"
                             id="no_polisi" name="no_polisi" value="{{ old('no_polisi') }}">
                     </div>

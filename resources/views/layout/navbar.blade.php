@@ -20,14 +20,18 @@
             </div>
 
             {{-- FOTO --}}
-            <img src="{{ asset('assets/img/profile.jpg') }}" class="rounded-circle border border-2 border-light"
-                width="40" height="40">
+            @if(auth()->guard('admin')->user()->foto)
+                <img src="{{ asset('storage/profile/' . auth()->guard('admin')->user()->foto) }}" 
+                     class="rounded-circle border border-2 border-light" width="40" height="40" style="object-fit: cover;">
+            @else
+                <img src="{{ asset('assets/img/profile.jpg') }}" class="rounded-circle border border-2 border-light" width="40" height="40">
+            @endif
         </a>
 
         {{-- DROPDOWN MENU --}}
         <ul class="dropdown-menu dropdown-menu-end shadow">
             <li>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="{{ route('profile.index') }}">
                     <i class="fa fa-user me-2"></i> Profile
                 </a>
             </li>
